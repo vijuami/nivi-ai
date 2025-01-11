@@ -1,0 +1,1109 @@
+<html><head><base href="https://vi117.github.io/"><style>
+  body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(45deg, #0f0f2f, #1f1f3f);
+    color: #e0e0ff;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    min-height: 100vh;
+  }
+
+  .nav-tabs {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(15, 15, 47, 0.95);
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+  }
+
+  .nav-tab {
+    color: #e0e0ff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+  }
+
+  .nav-tab.active {
+    background: #4f4fff;
+  }
+
+  .content {
+    margin-right: 320px;
+    margin-top: 80px;
+    padding: 20px;
+  }
+
+  .budget-header {
+    position: sticky;
+    top: 70px;
+    background: rgba(15, 15, 47, 0.95);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .input-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .input-group {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 5px;
+  }
+
+  .input-group input, .input-group select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    color: #e0e0ff;
+  }
+
+  .allocation-boxes {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .allocation-box {
+    flex: 1;
+    background: #000;
+    padding: 1rem;
+    border-radius: 5px;
+    color: yellow;
+    text-align: center;
+  }
+
+  .entries-list {
+    margin-top: 2rem;
+  }
+
+  .entry-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .date-picker {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .date-picker svg {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+  }
+
+  .logo-container {
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  .nivi-logo {
+    filter: drop-shadow(0 0 10px #4f4fff);
+  }
+
+  .title {
+    font-size: 3rem;
+    margin: 1rem 0;
+    background: linear-gradient(90deg, #4f4fff, #ff4fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(79, 79, 255, 0.3);
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+    opacity: 0.8;
+    margin-bottom: 2rem;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+
+  .transaction-section {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+  }
+
+  .transaction-header {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #4f4fff;
+  }
+
+  .transaction-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-group {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    color: #e0e0ff;
+  }
+
+  .reminder-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .transaction-list {
+    margin-top: 1rem;
+  }
+
+  .transaction-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .transaction-item.reminder-active {
+    background: orange;
+  }
+
+  .transaction-item.reminder-urgent {
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0.5; }
+  }
+
+  .add-btn {
+    background: #4f4fff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .add-btn:hover {
+    background: #3f3fdf;
+  }
+
+  .reminder-controls {
+    margin-top: 1rem;
+  }
+
+  .income-list {
+    margin-top: 1rem;
+  }
+
+  .income-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .sidebar {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 300px;
+    height: 100vh;
+    background: rgba(50, 50, 50, 0.95);
+    color: white;
+    padding: 1rem;
+    overflow-y: auto;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
+    margin-top: 60px;
+  }
+
+  .sidebar-section {
+    margin-bottom: 2rem;
+  }
+
+  .sidebar-title {
+    color: #4f4fff;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .sidebar-list {
+    margin-bottom: 2rem;
+  }
+
+  .sidebar-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 3px;
+    font-size: 0.9rem;
+    color: white;
+  }
+  
+  .edit-delete-controls {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .edit-btn, .delete-btn {
+    padding: 0.25rem 0.5rem;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.8rem;
+  }
+
+  .edit-btn {
+    background: #4f4fff;
+    color: white;
+  }
+
+  .delete-btn {
+    background: #ff4f4f;
+    color: white;
+  }
+</style></head><body>
+
+<nav class="nav-tabs">
+  <a href="#budget" class="nav-tab active">Budget</a>
+  <a href="#voice-notes" class="nav-tab">Voice Notes</a>
+  <a href="#docs-vault" class="nav-tab">Docs Vault</a>
+</nav>
+
+<div class="content">
+  <div id="budget" class="budget-section">
+    <div class="budget-header">
+      <div class="input-row">
+        <div class="input-group">
+          <label>Income Amount</label>
+          <input type="number" id="incomeAmount" placeholder="Enter amount">
+        </div>
+        <div class="input-group">
+          <label>Date</label>
+          <div class="date-picker">
+            <input type="date" id="incomeDate">
+            <svg width="20" height="20" viewBox="0 0 20 20">
+              <path d="M6,1V3H14V1H16V3H19V19H1V3H4V1H6M3,5V17H17V5H3" fill="currentColor"/>
+            </svg>
+          </div>
+        </div>
+        <div class="input-group">
+          <label>Source</label>
+          <input type="text" id="incomeSource" placeholder="Income source">
+        </div>
+      </div>
+
+      <div class="allocation-boxes">
+        <div class="allocation-box">
+          <h3>Needs (50%)</h3>
+          <div id="needsAmount">&#x20b9;0</div>
+          <div id="needsBalance">Balance: &#x20b9;0</div>
+        </div>
+        <div class="allocation-box">
+          <h3>Wants (30%)</h3>
+          <div id="wantsAmount">&#x20b9;0</div> 
+          <div id="wantsBalance">Balance: &#x20b9;0</div>
+        </div>
+        <div class="allocation-box">
+          <h3>Savings (20%)</h3>
+          <div id="savingsAmount">&#x20b9;0</div>
+          <div id="savingsBalance">Balance: &#x20b9;0</div>
+        </div>
+        <div class="allocation-box">
+          <h3>Unwanted Expenses</h3>
+          <div id="unwantedAmount">&#x20b9;0</div>
+        </div>
+        <div class="allocation-box">
+          <h3>To Repay</h3>
+          <div id="repayAmount">&#x20b9;0</div>
+        </div>
+        <div class="allocation-box">
+          <h3>CC Repay</h3>
+          <div id="ccRepayAmount">&#x20b9;0</div>
+        </div>
+      </div>
+      <button class="add-btn" onclick="addIncome()">Add Income</button>
+      <div class="income-list"></div>
+    </div>
+
+    <div class="entries-list" id="entriesList">
+      <!-- Entries will be added here dynamically -->
+    </div>
+
+    <!-- New Expense Section -->
+    <div class="transaction-section">
+      <h3 class="transaction-header">Expense</h3>
+      <div class="transaction-form">
+        <div class="form-group">
+          <label>Amount</label>
+          <input type="number" id="expenseAmount" placeholder="Enter amount">
+        </div>
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" id="expenseDate">
+        </div>
+        <div class="form-group">
+          <label>Purpose</label>
+          <input type="text" id="expensePurpose" placeholder="Purpose">
+        </div>
+        <div class="form-group">
+          <label>Category</label>
+          <select id="expenseCategory">
+            <option value="needs">Needs</option>
+            <option value="wants">Wants</option>
+            <option value="loans-save">Loans/Save</option>
+            <option value="unwanted">Unwanted</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Recurrence</label>
+          <select id="expenseRecurrence">
+            <option value="randomly">Randomly</option>
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+            <option value="quarterly">Quarterly</option>
+            <option value="half-yearly">Half Yearly</option>
+            <option value="annually">Annually</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Pay Mode</label>
+          <select id="expensePayMode">
+            <option value="cash">Cash</option>
+            <option value="debit">Debit Card/Bank Transfer</option>
+            <option value="credit">Credit Card</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <div class="reminder-toggle">
+            <label>Set Reminder</label>
+            <input type="checkbox" id="expenseReminder">
+          </div>
+        </div>
+        <div class="form-group reminder-controls" style="display:none">
+          <label>Reminder Date/Time</label>
+          <input type="datetime-local" id="reminderDateTime">
+          <button id="stopReminder">Stop Reminder</button>
+          <button id="snoozeReminder">Snooze</button>
+        </div>
+        <button class="add-btn" onclick="addExpense()">Add Expense</button>
+      </div>
+      <div class="transaction-section">
+        <div id="expenseList" class="transaction-list"></div>
+      </div>
+    </div>
+
+    <!-- Borrowed Amount Section -->
+    <div class="transaction-section">
+      <h3 class="transaction-header">Borrowed Amount</h3>
+      <div class="transaction-form">
+        <div class="form-group">
+          <label>Amount</label>
+          <input type="number" id="borrowedAmount" placeholder="Enter amount">
+        </div>
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" id="borrowedDate">
+        </div>
+        <div class="form-group">
+          <label>Repay Tenure (months)</label>
+          <input type="number" id="repayTenure" placeholder="Number of months">
+        </div>
+        <div class="form-group">
+          <label>Repay Date (Optional)</label>
+          <input type="date" id="repayDate">
+        </div>
+        <div class="form-group">
+          <label>Repay Split</label>
+          <select id="repaySplit">
+            <option value="asap">ASAP</option>
+            <option value="monthly">Monthly Split</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Interest Amount</label>
+          <input type="number" id="interestAmount" placeholder="Interest amount">
+        </div>
+        <div class="form-group">
+          <div class="reminder-toggle">
+            <label>Set Reminder</label>
+            <input type="checkbox" id="borrowedReminder">
+          </div>
+        </div>
+        <div class="form-group reminder-controls" style="display:none">
+          <label>Reminder Date/Time</label>
+          <input type="datetime-local" id="borrowedReminderDateTime">
+          <button id="borrowedStopReminder">Stop Reminder</button>
+          <button id="borrowedSnoozeReminder">Snooze</button>
+        </div>
+        <button class="add-btn" onclick="addBorrowed()">Add Borrowed</button>
+      </div>
+      <div class="transaction-section">
+        <div id="borrowedList" class="transaction-list"></div>
+      </div>
+    </div>
+
+    <!-- Lent Amount Section -->
+    <div class="transaction-section">
+      <h3 class="transaction-header">Lent Amount</h3>
+      <div class="transaction-form">
+        <div class="form-group">
+          <label>Amount</label>
+          <input type="number" id="lentAmount" placeholder="Enter amount">
+        </div>
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" id="lentDate">
+        </div>
+        <div class="form-group">
+          <label>Purpose</label>
+          <input type="text" id="lentPurpose" placeholder="Purpose">
+        </div>
+        <div class="form-group">
+          <label>Category</label>
+          <select id="lentCategory">
+            <option value="needs">Needs</option>
+            <option value="wants">Wants</option>
+            <option value="savings">Savings</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <div class="reminder-toggle">
+            <label>Set Reminder</label>
+            <input type="checkbox" id="lentReminder"> 
+          </div>
+        </div>
+        <div class="form-group reminder-controls" style="display:none">
+          <label>Reminder Date/Time</label> 
+          <input type="datetime-local" id="lentReminderDateTime">
+          <button id="lentStopReminder">Stop Reminder</button>
+          <button id="lentSnoozeReminder">Snooze</button>
+        </div>
+        <button class="add-btn" onclick="addLent()">Add Lent</button>
+      </div>
+      <div class="transaction-section">
+        <div id="lentList" class="transaction-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="logo-container">
+    <svg class="nivi-logo" width="200" height="200" viewBox="0 0 100 100">
+      <defs>
+        <linearGradient id="nivi-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#4f4fff"/>
+          <stop offset="100%" style="stop-color:#ff4fff"/>
+        </linearGradient>
+      </defs>
+      
+      <!-- N -->
+      <path d="M20,20 L20,80 L35,80 L55,40 L55,80 L70,80 L70,20 L55,20 L35,60 L35,20 Z" fill="url(#nivi-gradient)" style="animation: pulse 2s infinite">
+      </path>
+      
+      <!-- Dot -->
+      <circle cx="80" cy="30" r="5" fill="#ff4fff" style="animation: float 3s infinite">
+      </circle>
+    </svg>
+
+    <h1 class="title">NiVi-AI</h1>
+    <p class="subtitle">Embracing the future of artificial intelligence</p>
+  </div>
+
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <h3 class="sidebar-title">Income History</h3>
+      <div id="incomeSidebar" class="sidebar-list"></div>
+    </div>
+    
+    <div class="sidebar-section">
+      <h3 class="sidebar-title">Expenses History</h3>
+      <div id="expenseSidebar" class="sidebar-list"></div>
+    </div>
+
+    <div class="sidebar-section">
+      <h3 class="sidebar-title">Borrowed History</h3>
+      <div id="borrowedSidebar" class="sidebar-list"></div>
+    </div>
+
+    <div class="sidebar-section"> 
+      <h3 class="sidebar-title">Lent History</h3>
+      <div id="lentSidebar" class="sidebar-list"></div>
+    </div>
+  </div>
+
+<script>let needsBalance = 0;
+let wantsBalance = 0;
+let savingsBalance = 0;
+let totalIncome = 0;
+let incomeEntries = [];
+let expenses = [];
+let borrowed = [];
+let lent = [];
+function addIncome() {
+  const income = {
+    amount: parseFloat(document.getElementById('incomeAmount').value),
+    date: document.getElementById('incomeDate').value,
+    source: document.getElementById('incomeSource').value,
+    id: Date.now()
+  };
+  if (!income.amount || !income.date || !income.source) return;
+  incomeEntries.push(income);
+  localStorage.setItem('incomeEntries', JSON.stringify(incomeEntries));
+  totalIncome += income.amount;
+  updateAllocations(totalIncome);
+  renderIncomeList();
+  renderSidebar();
+  document.getElementById('incomeAmount').value = '';
+  document.getElementById('incomeSource').value = '';
+}
+function renderIncomeList() {
+  const container = document.querySelector('.income-list');
+  container.innerHTML = '';
+  incomeEntries.forEach(income => {
+    const element = document.createElement('div');
+    element.className = 'income-item';
+    element.innerHTML = `
+      <span>₹${income.amount} - ${income.source}</span>
+      <span>${income.date}</span>
+      <div class="edit-delete-controls">
+        <button class="edit-btn" onclick="editIncome(${income.id})">Edit</button>
+        <button class="delete-btn" onclick="deleteIncome(${income.id})">Delete</button>
+      </div>
+    `;
+    container.appendChild(element);
+  });
+}
+document.addEventListener('DOMContentLoaded', () => {
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('incomeDate').value = today;
+  let entries = JSON.parse(localStorage.getItem('budgetEntries')) || [];
+  document.getElementById('incomeAmount').addEventListener('input', e => {
+    const amount = parseFloat(e.target.value) || 0;
+    updateAllocations(amount);
+  });
+  function updateAllocations(amount) {
+    totalIncome = amount;
+    const needs = amount * 0.5;
+    const wants = amount * 0.3;
+    const savings = amount * 0.2;
+    needsBalance = needs;
+    wantsBalance = wants;
+    savingsBalance = savings;
+    document.getElementById('needsAmount').textContent = `₹${needs.toFixed(2)}`;
+    document.getElementById('wantsAmount').textContent = `₹${wants.toFixed(2)}`;
+    document.getElementById('savingsAmount').textContent = `₹${savings.toFixed(2)}`;
+    updateBalanceDisplay();
+  }
+  function updateBalanceDisplay() {
+    document.getElementById('needsBalance').textContent = `Balance: ₹${needsBalance.toFixed(2)}`;
+    document.getElementById('wantsBalance').textContent = `Balance: ₹${wantsBalance.toFixed(2)}`;
+    document.getElementById('savingsBalance').textContent = `Balance: ₹${savingsBalance.toFixed(2)}`;
+  }
+  function calculateRecurringAmount(amount, recurrence) {
+    switch (recurrence) {
+      case 'weekly':
+        return amount * 4;
+      case 'monthly':
+        return amount;
+      case 'quarterly':
+        return amount / 4;
+      case 'half-yearly':
+        return amount / 6;
+      case 'annually':
+        return amount / 12;
+      default:
+        return amount;
+    }
+  }
+  function adjustBalances(amount, category) {
+    let remaining = amount;
+    switch (category) {
+      case 'needs':
+        if (needsBalance >= remaining) {
+          needsBalance -= remaining;
+          remaining = 0;
+        } else {
+          remaining -= needsBalance;
+          needsBalance = 0;
+          if (savingsBalance >= remaining) {
+            savingsBalance -= remaining;
+            remaining = 0;
+          } else {
+            remaining -= savingsBalance;
+            savingsBalance = 0;
+            if (wantsBalance >= remaining) {
+              wantsBalance -= remaining;
+              remaining = 0;
+            } else {
+              wantsBalance = 0;
+            }
+          }
+        }
+        break;
+      case 'wants':
+        if (wantsBalance >= remaining) {
+          wantsBalance -= remaining;
+          remaining = 0;
+        } else {
+          remaining -= wantsBalance;
+          wantsBalance = 0;
+          if (savingsBalance >= remaining) {
+            savingsBalance -= remaining;
+            remaining = 0;
+          } else {
+            savingsBalance = 0;
+          }
+        }
+        break;
+      case 'savings':
+        if (savingsBalance >= remaining) {
+          savingsBalance -= remaining;
+        } else {
+          savingsBalance = 0;
+        }
+        break;
+    }
+    updateBalanceDisplay();
+  }
+  incomeEntries = JSON.parse(localStorage.getItem('incomeEntries')) || [];
+  const dateInputs = document.querySelectorAll('input[type="date"]');
+  dateInputs.forEach(input => {
+    input.value = new Date().toISOString().split('T')[0];
+  });
+  document.getElementById('expenseReminder').addEventListener('change', e => {
+    const controls = e.target.closest('.transaction-form').querySelector('.reminder-controls');
+    controls.style.display = e.target.checked ? 'block' : 'none';
+  });
+  document.getElementById('borrowedReminder').addEventListener('change', e => {
+    const controls = e.target.closest('.transaction-form').querySelector('.reminder-controls');
+    controls.style.display = e.target.checked ? 'block' : 'none';
+  });
+  document.getElementById('lentReminder').addEventListener('change', e => {
+    const controls = e.target.closest('.transaction-form').querySelector('.reminder-controls');
+    controls.style.display = e.target.checked ? 'block' : 'none';
+  });
+  let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+  let borrowed = JSON.parse(localStorage.getItem('borrowed')) || [];
+  let lent = JSON.parse(localStorage.getItem('lent')) || [];
+  let ccExpenses = JSON.parse(localStorage.getItem('ccExpenses')) || [];
+  let activeReminders = JSON.parse(localStorage.getItem('activeReminders')) || {};
+  const reminderAudio = new Audio('data:audio/wav;base64,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qJrx4KOQjahZxWbcZgztj2c49nKmkId44S71j0c8eV9yDK6uPRzx5X18eDvjvQ6yKo9ZSS6l//8elePK/Lf//IInrOF/FvDoADYAGBMGb7FtErm5MXMlmPAJQVgWta7Zx2go+8xJ0UiCb8LHHdftWyLJE0QIAIsI+UbXu67dZMjmgDGCGl1H+vpF4NSDckSIkk7Vd+sxEhBQMRU8j/12UIRhzSaUdQ+rQU5kGeFxm+hb1oh6pWWmv3uvmReDl0UnvtapVaIzo1jZbf/pD6ElLqSX+rUmOQNpJFa/r+sa4e/pBlAABoAAAAA3CUgShLdGIxsY7AUABPRrgCABdDuQ5GC7DqPQCgbbJUAoRSUj+NIEig0YfyWUho1VBBBA//uQZB4ABZx5zfMakeAAAAmwAAAAF5F3P0w9GtAAACfAAAAAwLhMDmAYWMgVEG1U0FIGCBgXBXAtfMH10000EEEEEECUBYln03TTTdNBDZopopYvrTTdNa325mImNg3TTPV9q3pmY0xoO6bv3r00y+IDGid/9aaaZTGMuj9mpu9Mpio1dXrr5HERTZSmqU36A3CumzN/9Robv/Xx4v9ijkSRSNLQhAWumap82WRSBUqXStV/YcS+XVLnSS+WLDroqArFkMEsAS+eWmrUzrO0oEmE40RlMZ5+ODIkAyKAGUwZ3mVKmcamcJnMW26MRPgUw6j+LkhyHGVGYjSUUKNpuJUQoOIAyDvEyG8S5yfK6dhZc0Tx1KI/gviKL6qvvFs1+bWtaz58uUNnryq6kt5RzOCkPWlVqVX2a/EEBUdU1KrXLf40GoiiFXK///qpoiDXrOgqDR38JB0bw7SoL+ZB9o1RCkQjQ2CBYZKd/+VJxZRRZlqSkKiws0WFxUyCwsKiMy7hUVFhIaCrNQsKkTIsLivwKKigsj8XYlwt/WKi2N4d//uQRCSAAjURNIHpMZBGYiaQPSYyAAABLAAAAAAAACWAAAAApUF/Mg+0aohSIRobBAsMlO//Kk4soosy1JSFRYWaLC4qZBYWFRGZdwqKiwkNBVmoWFSJkWFxX4FFRQWR+LsS4W/rFRb/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////VEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU291bmRib3kuZGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjAwNGh0dHA6Ly93d3cuc291bmRib3kuZGUAAAAAAAAAACU=');
+  const renderTransactions = (items, containerId) => {
+    const container = document.getElementById(containerId);
+    container.innerHTML = '';
+    items.forEach(item => {
+      const element = document.createElement('div');
+      element.className = 'transaction-item';
+      if (activeReminders[item.id]) {
+        element.classList.add('reminder-active');
+      }
+      element.innerHTML = `
+        <span>₹${item.amount} - ${item.purpose || ''}</span>
+        <span>${item.date}</span>
+        <div class="edit-delete-controls">
+          <button class="edit-btn" onclick="editTransaction('${containerId}', ${item.id})">Edit</button>
+          <button class="delete-btn" onclick="deleteTransaction('${containerId}', ${item.id})">Delete</button>
+        </div>
+      `;
+      container.appendChild(element);
+    });
+  };
+  const renderExpenses = () => renderTransactions(expenses, 'expenseList');
+  const renderBorrowed = () => renderTransactions(borrowed, 'borrowedList');
+  const renderLent = () => renderTransactions(lent, 'lentList');
+  function stopReminder(id) {
+    delete activeReminders[id];
+    localStorage.setItem('activeReminders', JSON.stringify(activeReminders));
+    const item = document.querySelector(`[data-id="${id}"]`);
+    if (item) {
+      item.classList.remove('reminder-active');
+    }
+    renderExpenses();
+  }
+  function snoozeReminder(id) {
+    const newReminderDateTime = new Date(new Date(activeReminders[id]).getTime() + 30 * 60 * 1000).toISOString();
+    activeReminders[id] = newReminderDateTime;
+    localStorage.setItem('activeReminders', JSON.stringify(activeReminders));
+    renderExpenses();
+  }
+  function startReminder(id, reminderDateTime) {
+    const reminderDate = new Date(reminderDateTime);
+    const now = new Date();
+    if (reminderDate < now) return;
+    const intervalId = setInterval(() => {
+      const now = new Date();
+      if (now >= reminderDate) {
+        clearInterval(intervalId);
+        reminderAudio.play();
+      }
+    }, 1000);
+  }
+  window.addExpense = () => {
+    const expense = {
+      amount: calculateRecurringAmount(parseFloat(document.getElementById('expenseAmount').value), document.getElementById('expenseRecurrence').value),
+      date: document.getElementById('expenseDate').value,
+      purpose: document.getElementById('expensePurpose').value,
+      category: document.getElementById('expenseCategory').value,
+      recurrence: document.getElementById('expenseRecurrence').value,
+      payMode: document.getElementById('expensePayMode').value,
+      reminder: document.getElementById('expenseReminder').checked,
+      reminderDateTime: document.getElementById('reminderDateTime').value,
+      id: Date.now()
+    };
+    if (!expense.amount || !expense.date || !expense.purpose) return;
+    adjustBalances(expense.amount, expense.category);
+    expenses.push(expense);
+    localStorage.setItem('expenses', JSON.stringify(expenses));
+    renderExpenses();
+    renderSidebar();
+    if (expense.payMode === 'credit') {
+      ccExpenses.push(expense);
+      localStorage.setItem('ccExpenses', JSON.stringify(ccExpenses));
+      const ccTotal = ccExpenses.reduce((sum, exp) => sum + parseFloat(exp.amount), 0);
+      document.getElementById('ccRepayAmount').textContent = `₹${ccTotal}`;
+    }
+    if (expense.reminder && expense.reminderDateTime) {
+      activeReminders[expense.id] = expense.reminderDateTime;
+      localStorage.setItem('activeReminders', JSON.stringify(activeReminders));
+      startReminder(expense.id, expense.reminderDateTime);
+      const element = document.querySelector(`[data-id="${expense.id}"]`);
+      if (element) {
+        element.classList.add('reminder-active');
+      }
+    }
+  };
+  window.addBorrowed = () => {
+    const newBorrowed = {
+      amount: document.getElementById('borrowedAmount').value,
+      date: document.getElementById('borrowedDate').value,
+      tenure: document.getElementById('repayTenure').value,
+      repayDate: document.getElementById('repayDate').value,
+      split: document.getElementById('repaySplit').value,
+      interest: document.getElementById('interestAmount').value,
+      reminder: document.getElementById('borrowedReminder').checked,
+      reminderDateTime: document.getElementById('borrowedReminderDateTime').value,
+      id: Date.now()
+    };
+    if (!newBorrowed.amount || !newBorrowed.date) return;
+    borrowed.push(newBorrowed);
+    localStorage.setItem('borrowed', JSON.stringify(borrowed));
+    renderBorrowed();
+    renderSidebar();
+    if (newBorrowed.reminder && newBorrowed.reminderDateTime) {
+      activeReminders[newBorrowed.id] = newBorrowed.reminderDateTime;
+      localStorage.setItem('activeReminders', JSON.stringify(activeReminders));
+      startReminder(newBorrowed.id, newBorrowed.reminderDateTime);
+      const element = document.querySelector(`[data-id="${newBorrowed.id}"]`);
+      if (element) {
+        element.classList.add('reminder-active');
+      }
+    }
+    document.getElementById('borrowedAmount').value = '';
+    document.getElementById('repayTenure').value = '';
+  };
+  window.addLent = () => {
+    const newLent = {
+      amount: document.getElementById('lentAmount').value,
+      date: document.getElementById('lentDate').value,
+      purpose: document.getElementById('lentPurpose').value,
+      category: document.getElementById('lentCategory').value,
+      reminder: document.getElementById('lentReminder').checked,
+      reminderDateTime: document.getElementById('lentReminderDateTime').value,
+      id: Date.now()
+    };
+    if (!newLent.amount || !newLent.date || !newLent.purpose) return;
+    lent.push(newLent);
+    localStorage.setItem('lent', JSON.stringify(lent));
+    renderLent();
+    renderSidebar();
+    if (newLent.reminder && newLent.reminderDateTime) {
+      activeReminders[newLent.id] = newLent.reminderDateTime;
+      localStorage.setItem('activeReminders', JSON.stringify(activeReminders));
+      startReminder(newLent.id, newLent.reminderDateTime);
+      const element = document.querySelector(`[data-id="${newLent.id}"]`);
+      if (element) {
+        element.classList.add('reminder-active');
+      }
+    }
+    document.getElementById('lentAmount').value = '';
+    document.getElementById('lentPurpose').value = '';
+  };
+  function editIncome(id) {
+    const income = incomeEntries.find(i => i.id === id);
+    if (!income) return;
+    document.getElementById('incomeAmount').value = income.amount;
+    document.getElementById('incomeDate').value = income.date;
+    document.getElementById('incomeSource').value = income.source;
+    deleteIncome(id);
+  }
+  function deleteIncome(id) {
+    if (confirm('Are you sure you want to delete this income entry?')) {
+      const income = incomeEntries.find(i => i.id === id);
+      totalIncome -= income.amount;
+      incomeEntries = incomeEntries.filter(e => e.id !== id);
+      localStorage.setItem('incomeEntries', JSON.stringify(incomeEntries));
+      updateAllocations(totalIncome);
+      renderIncomeList();
+      renderSidebar();
+    }
+  }
+  function editTransaction(containerId, id) {
+    let items;
+    let prefix;
+    switch (containerId) {
+      case 'expenseList':
+        items = expenses;
+        prefix = 'expense';
+        break;
+      case 'borrowedList':
+        items = borrowed;
+        prefix = 'borrowed';
+        break;
+      case 'lentList':
+        items = lent;
+        prefix = 'lent';
+        break;
+    }
+    const item = items.find(i => i.id === id);
+    if (!item) return;
+    document.getElementById(`${prefix}Amount`).value = item.amount;
+    document.getElementById(`${prefix}Date`).value = item.date;
+    if (prefix === 'expense') {
+      document.getElementById('expensePurpose').value = item.purpose;
+      document.getElementById('expenseCategory').value = item.category;
+      document.getElementById('expenseRecurrence').value = item.recurrence;
+      document.getElementById('expensePayMode').value = item.payMode;
+      document.getElementById('expenseReminder').checked = item.reminder;
+      if (item.reminderDateTime) {
+        document.getElementById('reminderDateTime').value = item.reminderDateTime;
+      }
+    } else if (prefix === 'borrowed') {
+      document.getElementById('repayTenure').value = item.tenure;
+      document.getElementById('repayDate').value = item.repayDate;
+      document.getElementById('repaySplit').value = item.split;
+      document.getElementById('interestAmount').value = item.interest;
+      document.getElementById('borrowedReminderDateTime').value = item.reminderDateTime;
+      document.getElementById('borrowedReminder').checked = item.reminder;
+    } else if (prefix === 'lent') {
+      document.getElementById('lentPurpose').value = item.purpose;
+      document.getElementById('lentCategory').value = item.category;
+      document.getElementById('lentReminderDateTime').value = item.reminderDateTime;
+      document.getElementById('lentReminder').checked = item.reminder;
+    }
+    deleteTransaction(containerId, id);
+  }
+  function deleteTransaction(containerId, id) {
+    if (!confirm('Are you sure you want to delete this entry?')) return;
+    let items;
+    switch (containerId) {
+      case 'expenseList':
+        items = expenses;
+        expenses = expenses.filter(e => e.id !== id);
+        localStorage.setItem('expenses', JSON.stringify(expenses));
+        renderExpenses();
+        break;
+      case 'borrowedList':
+        items = borrowed;
+        borrowed = borrowed.filter(b => b.id !== id);
+        localStorage.setItem('borrowed', JSON.stringify(borrowed));
+        renderBorrowed();
+        break;
+      case 'lentList':
+        items = lent;
+        lent = lent.filter(l => l.id !== id);
+        localStorage.setItem('lent', JSON.stringify(lent));
+        renderLent();
+        break;
+    }
+    renderSidebar();
+  }
+  renderExpenses();
+  renderBorrowed();
+  renderLent();
+  renderIncomeList();
+  renderSidebar();
+  expenses.forEach(expense => {
+    adjustBalances(expense.amount, expense.category);
+  });
+  const storedIncome = entries[entries.length - 1]?.amount;
+  if (storedIncome) {
+    updateAllocations(parseFloat(storedIncome));
+  }
+});
+function renderSidebar() {
+  const incomeSidebar = document.getElementById('incomeSidebar');
+  incomeSidebar.innerHTML = '';
+  incomeEntries.forEach(income => {
+    const item = document.createElement('div');
+    item.className = 'sidebar-item';
+    item.innerHTML = `₹${income.amount} - ${income.source} (${income.date})`;
+    incomeSidebar.appendChild(item);
+  });
+  const expenseSidebar = document.getElementById('expenseSidebar');
+  expenseSidebar.innerHTML = '';
+  expenses.forEach(expense => {
+    const item = document.createElement('div');
+    item.className = 'sidebar-item';
+    item.innerHTML = `₹${expense.amount} - ${expense.purpose} (${expense.date})`;
+    expenseSidebar.appendChild(item);
+  });
+  const borrowedSidebar = document.getElementById('borrowedSidebar');
+  borrowedSidebar.innerHTML = '';
+  borrowed.forEach(item => {
+    const element = document.createElement('div');
+    element.className = 'sidebar-item';
+    element.innerHTML = `₹${item.amount} (${item.date})`;
+    borrowedSidebar.appendChild(element);
+  });
+  const lentSidebar = document.getElementById('lentSidebar');
+  lentSidebar.innerHTML = '';
+  lent.forEach(item => {
+    const element = document.createElement('div');
+    element.className = 'sidebar-item';
+    element.innerHTML = `₹${item.amount} - ${item.purpose} (${item.date})`;
+    lentSidebar.appendChild(element);
+  });
+}
+function updateAllocations(totalIncome) {}
+function editIncome(id) {
+  const income = incomeEntries.find(i => i.id === id);
+  if (!income) return;
+  document.getElementById('incomeAmount').value = income.amount;
+  document.getElementById('incomeDate').value = income.date;
+  document.getElementById('incomeSource').value = income.source;
+  deleteIncome(id);
+}
+function deleteIncome(id) {
+  if (confirm('Are you sure you want to delete this income entry?')) {
+    const income = incomeEntries.find(i => i.id === id);
+    totalIncome -= income.amount;
+    incomeEntries = incomeEntries.filter(e => e.id !== id);
+    localStorage.setItem('incomeEntries', JSON.stringify(incomeEntries));
+    updateAllocations(totalIncome);
+    renderIncomeList();
+    renderSidebar();
+  }
+}
+function editTransaction(containerId, id) {
+  let items;
+  let prefix;
+  switch (containerId) {
+    case 'expenseList':
+      items = expenses;
+      prefix = 'expense';
+      break;
+    case 'borrowedList':
+      items = borrowed;
+      prefix = 'borrowed';
+      break;
+    case 'lentList':
+      items = lent;
+      prefix = 'lent';
+      break;
+  }
+  const item = items.find(i => i.id === id);
+  if (!item) return;
+  document.getElementById(`${prefix}Amount`).value = item.amount;
+  document.getElementById(`${prefix}Date`).value = item.date;
+  if (prefix === 'expense') {
+    document.getElementById('expensePurpose').value = item.purpose;
+    document.getElementById('expenseCategory').value = item.category;
+    document.getElementById('expenseRecurrence').value = item.recurrence;
+    document.getElementById('expensePayMode').value = item.payMode;
+    document.getElementById('expenseReminder').checked = item.reminder;
+    if (item.reminderDateTime) {
+      document.getElementById('reminderDateTime').value = item.reminderDateTime;
+    }
+  } else if (prefix === 'borrowed') {
+    document.getElementById('repayTenure').value = item.tenure;
+    document.getElementById('repayDate').value = item.repayDate;
+    document.getElementById('repaySplit').value = item.split;
+    document.getElementById('interestAmount').value = item.interest;
+    document.getElementById('borrowedReminderDateTime').value = item.reminderDateTime;
+    document.getElementById('borrowedReminder').checked = item.reminder;
+  } else if (prefix === 'lent') {
+    document.getElementById('lentPurpose').value = item.purpose;
+    document.getElementById('lentCategory').value = item.category;
+    document.getElementById('lentReminderDateTime').value = item.reminderDateTime;
+    document.getElementById('lentReminder').checked = item.reminder;
+  }
+  deleteTransaction(containerId, id);
+}
+function deleteTransaction(containerId, id) {
+  if (!confirm('Are you sure you want to delete this entry?')) return;
+  let items;
+  switch (containerId) {
+    case 'expenseList':
+      items = expenses;
+      expenses = expenses.filter(e => e.id !== id);
+      localStorage.setItem('expenses', JSON.stringify(expenses));
+      renderExpenses();
+      break;
+    case 'borrowedList':
+      items = borrowed;
+      borrowed = borrowed.filter(b => b.id !== id);
+      localStorage.setItem('borrowed', JSON.stringify(borrowed));
+      renderBorrowed();
+      break;
+    case 'lentList':
+      items = lent;
+      lent = lent.filter(l => l.id !== id);
+      localStorage.setItem('lent', JSON.stringify(lent));
+      renderLent();
+      break;
+  }
+  renderSidebar();
+}</script>
+
+</div></body></html>
